@@ -52,6 +52,7 @@ graph TD
 - **Spring Data JPA & Hibernate**: For ORM and database interactions.
 - **Apache Kafka**: Inter-service message broker.
 - **MySQL 8.0**: Relational database (1 dedicated schema per microservice).
+- **Postman**: Used for endpoint testing, debugging, and request validation
 
 **Frontend:**
 - **Kotlin & Android SDK**: Native mobile application development (`PatientApp` and `StaffApp`).

@@ -1,0 +1,121 @@
+
+services:
+
+  # ─────────────────────────────────────────────
+  # MySQL — single instance, multiple databases
+  # ─────────────────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: stlukas-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: your_secure_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pyour_secure_password"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  # ──────────────
+  # Kafka Broker
+  # ──────────────
+  kafka:
+    image: apache/kafka:3.7.0
+    container_name: stlukas-kafka
+    restart: unless-stopped
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093,PLAINTEXT_HOST://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      CLUSTER_ID: "stlukas-kafka-cluster-1"
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 45s
+
+  # ─────────────────────────────────────────────
+  # Patient Service — port 8081
+  # ─────────────────────────────────────────────
+  patient-service:
+    build:
+      context: ./patient
+    container_name: stlukas-patient
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASS: your_secure_password
+      KAFKA_BOOTSTRAP: kafka:9092
+    depends_on:
+      mysql:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  # ─────────────────────────────────────────────
+  # Doctor Service — port 8082
+  # ─────────────────────────────────────────────
+  doctor-service:
+    build:
+      context: ./doctor
+    container_name: stlukas-doctor
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASS: your_secure_password
+      KAFKA_BOOTSTRAP: kafka:9092
+    depends_on:
+      mysql:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  # ─────────────────────────────────────────────
+  # AppointmentSetter Service — port 8083
+  # ─────────────────────────────────────────────
+  appointmentsetter-service:
+    build:
+      context: ./appointmentsetter
+    container_name: stlukas-appointmentsetter
+    restart: unless-stopped
+    ports:
+      - "8083:8083"
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASS: your_secure_password
+      KAFKA_BOOTSTRAP: kafka:9092
+    depends_on:
+      mysql:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
+  kafka_data:

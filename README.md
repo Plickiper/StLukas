@@ -1,4 +1,6 @@
-# 🏥 St. Lukas Healthcare Management System
+<h1 align="center">
+  🏥 St. Lukas Healthcare Management System
+</h1>
 
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F.svg?style=for-the-badge&logo=Spring-Boot&logoColor=white) 
 ![Apache Kafka](https://img.shields.io/badge/Apache%20Kafka-231F20.svg?style=for-the-badge&logo=Apache-Kafka&logoColor=white) 

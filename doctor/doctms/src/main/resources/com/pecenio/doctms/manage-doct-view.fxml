@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="800.0" prefWidth="300.0" spacing="5.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pecenio.doctms.ManageDoctorController">
+	<padding>
+		<Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+	</padding>
+	<HBox prefHeight="100.0" prefWidth="200.0">
+		<children>
+			<ListView fx:id="lvDoctors" onMouseClicked="#onAction">
+				<HBox.margin>
+					<Insets bottom="10.0" />
+				</HBox.margin>
+			</ListView>
+			<VBox prefHeight="200.0" prefWidth="100.0">
+				<children>
+					<Button fx:id="btnDelete" mnemonicParsing="false" onAction="#onDelete" text="Delete" >
+						<VBox.margin>
+							<Insets bottom="10.0" />
+						</VBox.margin>
+					</Button>
+					<Button fx:id="btnEdit" mnemonicParsing="false" onAction="#onEdit" text="Edit" >
+						<VBox.margin>
+							<Insets bottom="10.0" />
+						</VBox.margin>
+					</Button>
+					<Button fx:id="btnCreate" mnemonicParsing="false" onAction="#onCreate" text="Create" >
+						<VBox.margin>
+							<Insets bottom="10.0" />
+						</VBox.margin>
+					</Button>
+					<Button fx:id="btnClose" mnemonicParsing="false" onAction="#onClose" text="Close" >
+						<VBox.margin>
+							<Insets bottom="10.0" />
+						</VBox.margin>
+					</Button>
+				</children>
+				<HBox.margin>
+					<Insets left="10.0" />
+				</HBox.margin>
+			</VBox>
+		</children>
+	</HBox>
+	<HBox prefHeight="30.0" prefWidth="200.0">
+	<Label alignment="CENTER" prefWidth="80.0" text="Id">
+	<padding>
+	<Insets left="10.0" />
+	</padding>
+	</Label>
+	<TextField fx:id="txtId" editable="false" prefWidth="200.0" >
+	<HBox.margin>
+	<Insets />
+	</HBox.margin>
+	</TextField>
+	<padding>
+	<Insets top="10.0" />
+	</padding>
+	</HBox>
+	<HBox prefHeight="30.0" prefWidth="200.0">
+		<Label alignment="CENTER" prefWidth="80.0" text="User">
+			<padding>
+				<Insets left="10.0" />
+			</padding>
+		</Label>
+		<StackPane prefHeight="150.0" prefWidth="200.0">
+			<children>
+				<ComboBox fx:id="cmbUser" prefWidth="200.0" />
+				<TextField fx:id="txtUserName" editable="false" prefWidth="150.0"/>
+			</children>
+		</StackPane>
+		<padding>
+			<Insets top="10.0" />
+		</padding>
+	</HBox>
+	<HBox prefHeight="30.0" prefWidth="200.0">
+		<Label alignment="CENTER" prefWidth="80.0" text="Username">
+			<padding>
+				<Insets left="10.0" />
+			</padding>
+		</Label>
+		<TextField fx:id="txtUsername" editable="false" prefWidth="200.0" />
+		<padding>
+			<Insets top="10.0" />
+		</padding>
+	</HBox>
+	<HBox prefHeight="30.0" prefWidth="200.0">
+		<Label alignment="CENTER" prefWidth="80.0" text="Password">
+			<padding>
+				<Insets left="10.0" />
+			</padding>
+		</Label>
+		<TextField fx:id="txtPassword" editable="false" prefWidth="200.0" />
+		<padding>
+			<Insets top="10.0" />
+		</padding>
+	</HBox>
+	<HBox prefHeight="30.0" prefWidth="200.0">
+		<Label alignment="CENTER" prefWidth="80.0" text="Role">
+			<padding>
+				<Insets left="10.0" />
+			</padding>
+		</Label>
+		<TextField fx:id="txtRole" editable="false" prefWidth="200.0" />
+		<padding>
+			<Insets top="10.0" />
+		</padding>
+	</HBox>
+	<HBox prefHeight="30.0" prefWidth="200.0">
+		<Label alignment="CENTER" prefWidth="80.0" text="FirstName">
+			<padding>
+				<Insets left="10.0" />
+			</padding>
+		</Label>
+		<TextField fx:id="txtFirstName" editable="false" prefWidth="200.0" />
+		<padding>
+			<Insets top="10.0" />
+		</padding>
+	</HBox>
+	<HBox prefHeight="30.0" prefWidth="200.0">
+		<Label alignment="CENTER" prefWidth="80.0" text="LastName">
+			<padding>
+				<Insets left="10.0" />
+			</padding>
+		</Label>
+		<TextField fx:id="txtLastName" editable="false" prefWidth="200.0" />
+		<padding>
+			<Insets top="10.0" />
+		</padding>
+	</HBox>
+	<HBox prefHeight="30.0" prefWidth="200.0">
+		<Label alignment="CENTER" prefWidth="80.0" text="Specialization">
+			<padding>
+				<Insets left="10.0" />
+			</padding>
+		</Label>
+		<TextField fx:id="txtSpecialization" editable="false" prefWidth="200.0" />
+		<padding>
+			<Insets top="10.0" />
+		</padding>
+	</HBox>
+	<HBox prefHeight="30.0" prefWidth="200.0">
+		<Label alignment="CENTER" prefWidth="80.0" text="AvailabilityStatus">
+			<padding>
+				<Insets left="10.0" />
+			</padding>
+		</Label>
+		<TextField fx:id="txtAvailabilityStatus" editable="false" prefWidth="200.0" />
+		<padding>
+			<Insets top="10.0" />
+		</padding>
+	</HBox>
+</VBox>

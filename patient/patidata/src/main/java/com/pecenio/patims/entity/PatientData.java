@@ -1,0 +1,39 @@
+package com.pecenio.patims.entity;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import javax.persistence.*;
+import lombok.Data;
+import java.util.Date;
+
+@Data
+@Entity
+@Table(name = "patient_data")
+public class PatientData {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private Long userId;
+	private String username;
+	private String password;
+	private String role;
+	private String firstName;
+	private String lastName;
+	private String phoneNumber;
+	private String dateOfBirth;
+	private int age;
+	private String address;
+	private String emergencyContact;
+
+	@UpdateTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	private Date lastUpdated;
+
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	private Date created;
+
+}
